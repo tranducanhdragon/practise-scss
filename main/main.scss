@@ -1,0 +1,196 @@
+$tablet: 768;
+$large: 1024;
+$desktop: 1280;
+
+@mixin tablet {
+    @media only screen and (min-width: $tablet * 1px) {
+        @content;
+    }
+}
+
+@mixin large {
+    @media only screen and (min-width: $large * 1px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media only screen and (min-width: $desktop * 1px) {
+        @content;
+    }
+}
+
+//scrollbar customs
+/* width */
+::-webkit-scrollbar {
+    height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+//end scrollbar
+
+@mixin box($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center-column {
+    @include flex-center;
+    flex-direction: column;
+}
+
+@mixin flex-center-vert {
+    display: flex;
+    align-items: center;
+}
+
+@mixin flex-center-horiz {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin margin-padding($margin: 10px, $padding: 20px) {
+    margin: $margin;
+    padding: $padding;
+}
+
+@mixin font-size($font-size, $line-height: normal, $letter-spacing: normal) {
+    font-size: $font-size * 1px;
+    // font-size: $font-size * 0.1rem; 
+    // example using rem values and 62.5% font-size so 1rem = 10px
+
+    @if $line-height==normal {
+        line-height: normal;
+    }
+
+    @else {
+        line-height: $line-height / $font-size;
+    }
+
+    @if $letter-spacing==normal {
+        letter-spacing: normal;
+    }
+
+    @else {
+        letter-spacing: #{$letter-spacing / $font-size}em;
+    }
+}
+
+@mixin font-face($font-name, $path, $weight: normal, $style: normal) {
+    @font-face {
+        font-family: quote($font-name);
+        src: url($path+".eot");
+        src: url($path+".eot?#iefix") format("embedded-opentype"),
+        url($path+".woff") format("woff"),
+        url($path+".ttf") format("truetype"),
+        url($path+".svg##{$font-name}") format("svg");
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+@mixin cover-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin pseudo($width: 100%,
+    $height: 100%,
+    $display: inline-block,
+    $pos: absolute,
+    $content: ""
+
+) {
+    content: $content;
+    display: $display;
+    position: $pos;
+    @include box($width, $height);
+}
+
+@mixin z-index($id) {
+    z-index: index($elements, $id);
+}
+
+@mixin fade($type) {
+    @if $type=="hide" {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 1s, opacity 1s;
+    }
+
+    @else if $type=="show" {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 1s, opacity 1s;
+    }
+}
+
+body {
+    font-size: 16px;
+    margin: 0;
+}
+
+main {
+    .grid-container {
+        overflow: auto;
+        height: 15rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        @include tablet() {
+            width: $tablet;
+        }
+
+        @include large() {
+            width: $large;
+        }
+
+        @include desktop() {
+            width: $desktop;
+        }
+
+        .grid-item {
+            @include box(20rem, 9rem);
+            @include flex-center-column();
+            @include margin-padding(5px, 30px);
+            border: 1px solid #000;
+
+            &:hover{
+                cursor: grab;
+            }
+
+            label {
+                @include font-size(24);
+            }
+
+            .content {
+                @include font-size(16);
+            }
+        }
+    }
+}

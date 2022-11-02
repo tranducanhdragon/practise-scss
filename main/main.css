@@ -1,0 +1,71 @@
+/* width */
+::-webkit-scrollbar {
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+}
+
+main .grid-container {
+  overflow: auto;
+  height: 15rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+@media only screen and (min-width: 768px) {
+  main .grid-container {
+    width: 768;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  main .grid-container {
+    width: 1024;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  main .grid-container {
+    width: 1280;
+  }
+}
+main .grid-container .grid-item {
+  width: 20rem;
+  height: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5px;
+  padding: 30px;
+  border: 1px solid #000;
+}
+main .grid-container .grid-item:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+main .grid-container .grid-item label {
+  font-size: 24px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+main .grid-container .grid-item .content {
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: normal;
+}/*# sourceMappingURL=main.css.map */
