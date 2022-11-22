@@ -40,6 +40,7 @@ $desktop: 1280;
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
 //end scrollbar
 
 @mixin box($width, $height: $width) {
@@ -180,7 +181,7 @@ main {
             @include margin-padding(5px, 30px);
             border: 1px solid #000;
 
-            &:hover{
+            &:hover {
                 cursor: grab;
             }
 
@@ -192,5 +193,183 @@ main {
                 @include font-size(16);
             }
         }
+    }
+}
+
+// study 2 draw a clock
+.clock-container {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+
+    .clock {
+        //perspective là độ nghiêng theo chiều sâu
+        // perspective: 400px;
+        perspective: none;
+        width: 200px;
+        height: 200px;
+        perspective: none;
+        background: #cdcdcd;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .clock-background {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+
+            //các mốc thời gian
+            .marker {
+                background: #4d4b63;
+                position: absolute;
+                height: 200px;
+                width: 2px;
+                left: 50%;
+            }
+
+            .marker:nth-child(1) {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                transform: rotate(0deg)
+            }
+
+            .marker:nth-child(2) {
+                -webkit-transform: rotate(30deg);
+                -moz-transform: rotate(30deg);
+                transform: rotate(30deg)
+            }
+
+            .marker:nth-child(3) {
+                -webkit-transform: rotate(60deg);
+                -moz-transform: rotate(60deg);
+                transform: rotate(60deg)
+            }
+
+            .marker:nth-child(4) {
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                transform: rotate(90deg)
+            }
+
+            .marker:nth-child(5) {
+                -webkit-transform: rotate(120deg);
+                -moz-transform: rotate(120deg);
+                transform: rotate(120deg)
+            }
+
+            .marker:nth-child(6) {
+                -webkit-transform: rotate(150deg);
+                -moz-transform: rotate(150deg);
+                transform: rotate(150deg)
+            }
+        }
+
+        /*mặt dial đè lên các 
+        thanh mốc thời gian
+        */
+        .clock-center {
+            width: 180px;
+            height: 180px;
+            transform: translateZ(-300px) translateX(0);
+            background: #cdcdcd;
+            border-radius: 100%;
+
+            //& chính là class .clock-center
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 12px;
+                height: 12px;
+                border-radius: 18px;
+                background: #919191;
+                z-index: 11;
+            }
+
+            .shaft {
+                position: absolute;
+                transform: translateX(-50%);
+                background: #4d4b63;
+            }
+
+            .arrow {
+                width: 0;
+                height: 0;
+                border: 1px solid transparent;
+                border-bottom: 30px solid #4d4b63;
+                position: absolute;
+                transform: translateX(-50%);
+                top: 0px;
+            }
+
+            .arrow:after {
+                content: '';
+                position: absolute;
+                left: -1px;
+                top: 30px;
+                width: 0;
+                height: 0;
+                border: 1px solid transparent;
+                border-top: 20px solid #4d4b63;
+            }
+
+            .hour-motion {
+                position: absolute;
+                height: 1px;
+                width: 1px;
+                top: 50%;
+                left: 50%;
+                /*transform-origin chọn tâm quay
+                cho hiệu ứng transform*/
+                transform-origin: 50% 50%;
+                animation: rotate 3600s infinite linear;
+
+                .shaft {
+                    height: 15px;
+                    width: 1px;
+                }
+
+                .arrow {
+                    top: 5px;
+                }
+            }
+
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .minute-motion {
+                position: absolute;
+                height: 1px;
+                width: 1px;
+                top: 50%;
+                left: 50%;
+                /*transform-origin chọn tâm quay
+                cho hiệu ứng transform*/
+                transform-origin: 50% 50%;
+                animation: rotate 60s infinite linear;
+
+                .shaft {
+                    height: 24px;
+                    width: 1px;
+                }
+
+                .arrow {
+                    top: 20px;
+                }
+            }
+        }
+
     }
 }

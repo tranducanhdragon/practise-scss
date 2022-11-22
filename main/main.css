@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* width */
 ::-webkit-scrollbar {
   height: 3px;
@@ -68,4 +69,152 @@ main .grid-container .grid-item .content {
   font-size: 16px;
   line-height: normal;
   letter-spacing: normal;
+}
+
+.clock-container {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.clock-container .clock {
+  perspective: none;
+  width: 200px;
+  height: 200px;
+  perspective: none;
+  background: #cdcdcd;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*mặt dial đè lên các 
+  thanh mốc thời gian
+  */
+}
+.clock-container .clock .clock-background {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+}
+.clock-container .clock .clock-background .marker {
+  background: #4d4b63;
+  position: absolute;
+  height: 200px;
+  width: 2px;
+  left: 50%;
+}
+.clock-container .clock .clock-background .marker:nth-child(1) {
+  transform: rotate(0deg);
+}
+.clock-container .clock .clock-background .marker:nth-child(2) {
+  transform: rotate(30deg);
+}
+.clock-container .clock .clock-background .marker:nth-child(3) {
+  transform: rotate(60deg);
+}
+.clock-container .clock .clock-background .marker:nth-child(4) {
+  transform: rotate(90deg);
+}
+.clock-container .clock .clock-background .marker:nth-child(5) {
+  transform: rotate(120deg);
+}
+.clock-container .clock .clock-background .marker:nth-child(6) {
+  transform: rotate(150deg);
+}
+.clock-container .clock .clock-center {
+  width: 180px;
+  height: 180px;
+  transform: translateZ(-300px) translateX(0);
+  background: #cdcdcd;
+  border-radius: 100%;
+}
+.clock-container .clock .clock-center::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 18px;
+  background: #919191;
+  z-index: 11;
+}
+.clock-container .clock .clock-center .shaft {
+  position: absolute;
+  transform: translateX(-50%);
+  background: #4d4b63;
+}
+.clock-container .clock .clock-center .arrow {
+  width: 0;
+  height: 0;
+  border: 1px solid transparent;
+  border-bottom: 30px solid #4d4b63;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 0px;
+}
+.clock-container .clock .clock-center .arrow:after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 30px;
+  width: 0;
+  height: 0;
+  border: 1px solid transparent;
+  border-top: 20px solid #4d4b63;
+}
+.clock-container .clock .clock-center .hour-motion {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  top: 50%;
+  left: 50%;
+  /*transform-origin chọn tâm quay
+  cho hiệu ứng transform*/
+  transform-origin: 50% 50%;
+  -webkit-animation: rotate 3600s infinite linear;
+          animation: rotate 3600s infinite linear;
+}
+.clock-container .clock .clock-center .hour-motion .shaft {
+  height: 15px;
+  width: 1px;
+}
+.clock-container .clock .clock-center .hour-motion .arrow {
+  top: 5px;
+}
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.clock-container .clock .clock-center .minute-motion {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  top: 50%;
+  left: 50%;
+  /*transform-origin chọn tâm quay
+  cho hiệu ứng transform*/
+  transform-origin: 50% 50%;
+  -webkit-animation: rotate 60s infinite linear;
+          animation: rotate 60s infinite linear;
+}
+.clock-container .clock .clock-center .minute-motion .shaft {
+  height: 24px;
+  width: 1px;
+}
+.clock-container .clock .clock-center .minute-motion .arrow {
+  top: 20px;
 }/*# sourceMappingURL=main.css.map */
